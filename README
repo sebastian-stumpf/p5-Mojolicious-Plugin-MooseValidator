@@ -1,0 +1,48 @@
+NAME
+    Mojolicious::Plugin::MooseValidator - Mojolicious Plugin for validating
+    parameters as Moose classes
+
+SYNOPSIS
+      # Mojolicious
+      $self->plugin('MooseValidator');
+
+      # Mojolicious::Lite
+      plugin 'MooseValidator';
+
+DESCRIPTION
+    Mojolicious::Plugin::MooseValidator is a Mojolicious plugin for
+    validating parameters as Moose classes.
+
+HELPERS
+  moose_validator
+        {
+            package Foobar;
+            has param => (
+                is => 'ro',
+                isa => 'Str',
+                required => 1
+            );
+        }
+
+        my $moose = $c->validate_moose('Foobar');
+        if($c->validation->has_error) {
+            # could not create moose object
+        }
+
+    Will create a new object if validation for all attributes is successful.
+    Will return nothing if the validation wasn't successful. Call
+    "has_error" in Mojolicious::Validator::Validation to verify that the
+    validation succeeded.
+
+METHODS
+    Mojolicious::Plugin::MooseValidator inherits all methods from
+    Mojolicious::Plugin and implements the following new ones.
+
+  register
+      $plugin->register(Mojolicious->new);
+
+    Register plugin in Mojolicious application.
+
+SEE ALSO
+    Mojolicious, Mojolicious::Guides, <http://mojolicio.us>.
+
